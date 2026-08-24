@@ -14,6 +14,8 @@
       <a href="index.html#install">Install</a>
       <a href="usage.html">Usage</a>
       <a href="index.html#examples">Examples</a>
+      <a href="https://github.com/theworker02/cidrhas">GitHub</a>
+      <a href="https://github.com/theworker02/cidrhas/releases/tag/v1.0.0">1.00</a>
     </div>
   </nav>
   
@@ -72,11 +74,11 @@ Examples:
         <div>
           <h3 class="ok">Success</h3>
           <pre><code>cidrhas 10.0.0.5 10.0.0.0/8
-echo exit:$?</code></pre><p>Exit code is 0. Optional stdout: `inside`.</p>
+echo exit:$?</code></pre><p>Exit code is 0. Optional stdout: <code>inside</code>.</p>
         </div>
         <div>
           <h3 class="fail">Failure</h3>
-          <pre><code>cidrhas 8.8.8.8 10.0.0.0/8 ; echo exit:$?</code></pre><p>Exit code is 1 (`outside`).</p><p>Bad input:</p><pre><code>cidrhas not-an-ip 10.0.0.0/8</code></pre><p>stderr: invalid ipv4. Exit 1.</p>
+          <pre><code>cidrhas 8.8.8.8 10.0.0.0/8 ; echo exit:$?</code></pre><p>Exit code is 1 (<code>outside</code>).</p><p>Bad input:</p><pre><code>cidrhas not-an-ip 10.0.0.0/8</code></pre><p>stderr: invalid ipv4. Exit 1.</p>
         </div>
       </div>
     </section>
