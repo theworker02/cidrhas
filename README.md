@@ -9,11 +9,11 @@
 ![license MIT](https://img.shields.io/badge/license-MIT-0B1F33)
 ![node >=18](https://img.shields.io/badge/node-%3E%3D18-C9A227?labelColor=0B1F33)
 ![release 1.00](https://img.shields.io/github/v/release/theworker02/cidrhas?display_name=release)
-[![npm](https://img.shields.io/npm/v/@magnexis/cidrhas.svg)](https://www.npmjs.com/package/@magnexis/cidrhas)
+[![npm](https://img.shields.io/npm/v/%40magnexis/cidrhas.svg)](https://www.npmjs.com/package/%40magnexis/cidrhas)
 
 Package version **1.00** (`1.0.0`). Default branch is **`main`** — never `master`.
 
-**Docs:** [GitHub Pages](https://theworker02.github.io/cidrhas/) · **Source:** [`theworker02/cidrhas`](https://github.com/theworker02/cidrhas) · **Release 1.00:** [`v1.0.0`](https://github.com/theworker02/cidrhas/releases/tag/v1.0.0) · **npm:** [`@magnexis/cidrhas`](https://www.npmjs.com/package/@magnexis/cidrhas)
+**Docs:** [GitHub Pages](https://theworker02.github.io/cidrhas/) · **Source:** [`theworker02/cidrhas`](https://github.com/theworker02/cidrhas) · **Release 1.00:** [`v1.0.0`](https://github.com/theworker02/cidrhas/releases/tag/v1.0.0) · **npm:** [`@magnexis/cidrhas`](https://www.npmjs.com/package/%40magnexis/cidrhas)
 
 ## Why it exists
 
@@ -30,11 +30,11 @@ Requires Node.js 18 or newer. No extra npm dependencies.
 ### Global install from npm
 
 ```bash
-npm install -g @magnexis/cidrhas
+npm i -g @magnexis/cidrhas
 cidrhas --help
 ```
 
-Package page: https://www.npmjs.com/package/@magnexis/cidrhas
+Package page: https://www.npmjs.com/package/%40magnexis/cidrhas
 
 ### Global install from GitHub
 
