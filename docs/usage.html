@@ -30,28 +30,59 @@
   <div class="wrap">
     <section>
       <h2>Synopsis</h2>
-      <pre><code>cidrhas [options] &lt;ipv4&gt; &lt;cidr&gt;</code></pre>
-      <div class="callout sans"><strong>Tip:</strong> <code>cidrhas --help</code> prints this text in the terminal. <code>cidrhas --version</code> prints <code>1.0.0</code>.</div>
+      <pre><code>cidrhas 1.00 (1.0.0)
+
+Usage:
+  cidrhas contains &lt;ipv4&gt; &lt;cidr&gt; [options]
+  cidrhas list &lt;cidr&gt; [options]
+  cidrhas --many &lt;cidr&gt; &lt; ips.txt
+  cidrhas &lt;ipv4&gt; &lt;cidr&gt;
+
+IPv4 only. Exit 0 if the address is inside the CIDR, else 1.
+
+Subcommands:
+  contains           Test one address (default when two positionals are given)
+  list               Print network, broadcast, count, and addresses (capped)
+
+Options:
+  -h, --help         Show this help and exit 0
+  -V, -v, --version  Print 1.0.0 and exit 0
+  --json             Structured JSON
+  --explain          Show network, mask, broadcast, and inside/outside
+  --many             Read IPv4 addresses from stdin (one per line) and test
+                     each against the given CIDR
+  --limit &lt;n&gt;        Max addresses printed by list (default 256)
+
+Exit codes:
+  0  address is inside (contains), or list/--many completed
+     --many exits 1 if any address is outside or invalid
+  1  outside, invalid IPv4/CIDR, or usage error
+
+Examples:
+  cidrhas 10.0.0.5 10.0.0.0/8
+  cidrhas contains --explain 192.168.1.20 192.168.1.0/24
+  cidrhas list --json 10.0.0.0/30
+  printf '10.0.0.1\n8.8.8.8\n' | cidrhas --many 10.0.0.0/8</code></pre>
+      <div class="callout sans"><strong>Tip:</strong> <code>cidrhas --help</code> and <code>-h</code> print this text. <code>cidrhas --version</code> and <code>-V</code> print <code>1.0.0</code>.</div>
     </section>
     <section>
       <h2>Flags and arguments</h2>
-      <table class="sans"><thead><tr><th>Flag / argument</th><th>Meaning</th></tr></thead><tbody><tr><td><code>-h, --help</code></td><td>Print detailed usage and exit 0.</td></tr><tr><td><code>-v, --version</code></td><td>Print 1.0.0 and exit 0.</td></tr><tr><td><code>&lt;ipv4&gt;</code></td><td>Dotted-quad IPv4 address, for example 10.0.0.5</td></tr><tr><td><code>&lt;cidr&gt;</code></td><td>IPv4 CIDR, for example 10.0.0.0/8</td></tr></tbody></table>
+      <p>The complete flag list is in <code>cidrhas --help</code> (shown above). Human output is the default; pass <code>--json</code> where supported.</p>
     </section>
     <section>
       <h2>Exit codes</h2>
-      <table class="sans"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody><tr><td><code>0</code></td><td>Address is in the CIDR.</td></tr><tr><td><code>1</code></td><td>Address is not in the CIDR, or inputs are invalid / missing.</td></tr></tbody></table>
+      <table class="sans"><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody><tr><td><code>0</code></td><td>Address is inside, or list completed. --many exits 0 only if every address is inside.</td></tr><tr><td><code>1</code></td><td>Outside, invalid IPv4/CIDR, or usage error.</td></tr></tbody></table>
     </section>
     <section>
       <h2>Configuration</h2>
-      <p>IPv4 only. Prefix length 0–32. Octets must be 0–255. Network bits are masked; host bits in the CIDR address are ignored.</p>
+      <p>IPv4 only. `--many` reads addresses from stdin. `list` prints the range (capped).</p>
     </section>
     <section id="examples">
       <h2>Worked examples</h2>
       <h3 class="ok">Success path</h3>
-      <pre><code>cidrhas 10.0.0.5 10.0.0.0/8
-echo exit:$?</code></pre><p>Exit code is 0. Optional stdout: <code>inside</code>.</p>
+      <p>An address inside the CIDR prints inside and exits 0.</p><pre><code>cidrhas 10.0.0.5 10.0.0.0/8</code></pre><pre><code>inside</code></pre>
       <h3 class="fail">Failure path</h3>
-      <pre><code>cidrhas 8.8.8.8 10.0.0.0/8 ; echo exit:$?</code></pre><p>Exit code is 1 (<code>outside</code>).</p><p>Bad input:</p><pre><code>cidrhas not-an-ip 10.0.0.0/8</code></pre><p>stderr: invalid ipv4. Exit 1.</p>
+      <p>An address outside the CIDR prints outside and exits 1.</p><pre><code>cidrhas 8.8.8.8 10.0.0.0/8</code></pre><pre><code>outside</code></pre><p>Exit code is 1.</p>
     </section>
   </div>
   <footer class="sans">

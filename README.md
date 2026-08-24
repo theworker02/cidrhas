@@ -59,24 +59,49 @@ Prints 0 then 1.
 
 ## CLI reference
 
-Synopsis:
-
 ```text
-cidrhas [options] <ipv4> <cidr>
-```
+cidrhas 1.00 (1.0.0)
 
-| Flag / argument | Meaning |
-| --- | --- |
-| `-h, --help` | Print detailed usage and exit 0. |
-| `-v, --version` | Print 1.0.0 and exit 0. |
-| `<ipv4>` | Dotted-quad IPv4 address, for example 10.0.0.5 |
-| `<cidr>` | IPv4 CIDR, for example 10.0.0.0/8 |
+Usage:
+  cidrhas contains <ipv4> <cidr> [options]
+  cidrhas list <cidr> [options]
+  cidrhas --many <cidr> < ips.txt
+  cidrhas <ipv4> <cidr>
+
+IPv4 only. Exit 0 if the address is inside the CIDR, else 1.
+
+Subcommands:
+  contains           Test one address (default when two positionals are given)
+  list               Print network, broadcast, count, and addresses (capped)
+
+Options:
+  -h, --help         Show this help and exit 0
+  -V, -v, --version  Print 1.0.0 and exit 0
+  --json             Structured JSON
+  --explain          Show network, mask, broadcast, and inside/outside
+  --many             Read IPv4 addresses from stdin (one per line) and test
+                     each against the given CIDR
+  --limit <n>        Max addresses printed by list (default 256)
+
+Exit codes:
+  0  address is inside (contains), or list/--many completed
+     --many exits 1 if any address is outside or invalid
+  1  outside, invalid IPv4/CIDR, or usage error
+
+Examples:
+  cidrhas 10.0.0.5 10.0.0.0/8
+  cidrhas contains --explain 192.168.1.20 192.168.1.0/24
+  cidrhas list --json 10.0.0.0/30
+  printf '10.0.0.1\n8.8.8.8\n' | cidrhas --many 10.0.0.0/8
+```
 
 Print the same text locally:
 
 ```bash
 cidrhas --help
+cidrhas -h
 cidrhas --version
+cidrhas -V
 ```
 
 Expected version output:
@@ -87,41 +112,42 @@ Expected version output:
 
 ## Configuration
 
-IPv4 only. Prefix length 0–32. Octets must be 0–255. Network bits are masked; host bits in the CIDR address are ignored.
+IPv4 only. `--many` reads addresses from stdin. `list` prints the range (capped).
 
 ## Exit codes
 
 | Code | Meaning |
 | --- | --- |
-| `0` | Address is in the CIDR. |
-| `1` | Address is not in the CIDR, or inputs are invalid / missing. |
+| `0` | Address is inside, or list completed. --many exits 0 only if every address is inside. |
+| `1` | Outside, invalid IPv4/CIDR, or usage error. |
 
 ## Examples
 
 ### Success path
 
+An address inside the CIDR prints inside and exits 0.
+
 ```bash
 cidrhas 10.0.0.5 10.0.0.0/8
-echo exit:$?
 ```
 
-Exit code is 0. Optional stdout: `inside`.
+```text
+inside
+```
 
 ### Failure path
 
-```bash
-cidrhas 8.8.8.8 10.0.0.0/8 ; echo exit:$?
-```
-
-Exit code is 1 (`outside`).
-
-Bad input:
+An address outside the CIDR prints outside and exits 1.
 
 ```bash
-cidrhas not-an-ip 10.0.0.0/8
+cidrhas 8.8.8.8 10.0.0.0/8
 ```
 
-stderr: invalid ipv4. Exit 1.
+```text
+outside
+```
+
+Exit code is 1.
 
 ## How to run tests
 

@@ -42,9 +42,39 @@
     <section id="install">
       <h2>Install</h2>
       <p>Install globally from Git, or run with Node from a clone. There are no extra dependencies.</p>
-      <pre><code>npm install -g git+https://github.com/theworker02/cidrhas.git
-cidrhas --help
-node src/cli.js --help</code></pre>
+      <pre><code>cidrhas 1.00 (1.0.0)
+
+Usage:
+  cidrhas contains &lt;ipv4&gt; &lt;cidr&gt; [options]
+  cidrhas list &lt;cidr&gt; [options]
+  cidrhas --many &lt;cidr&gt; &lt; ips.txt
+  cidrhas &lt;ipv4&gt; &lt;cidr&gt;
+
+IPv4 only. Exit 0 if the address is inside the CIDR, else 1.
+
+Subcommands:
+  contains           Test one address (default when two positionals are given)
+  list               Print network, broadcast, count, and addresses (capped)
+
+Options:
+  -h, --help         Show this help and exit 0
+  -V, -v, --version  Print 1.0.0 and exit 0
+  --json             Structured JSON
+  --explain          Show network, mask, broadcast, and inside/outside
+  --many             Read IPv4 addresses from stdin (one per line) and test
+                     each against the given CIDR
+  --limit &lt;n&gt;        Max addresses printed by list (default 256)
+
+Exit codes:
+  0  address is inside (contains), or list/--many completed
+     --many exits 1 if any address is outside or invalid
+  1  outside, invalid IPv4/CIDR, or usage error
+
+Examples:
+  cidrhas 10.0.0.5 10.0.0.0/8
+  cidrhas contains --explain 192.168.1.20 192.168.1.0/24
+  cidrhas list --json 10.0.0.0/30
+  printf '10.0.0.1\n8.8.8.8\n' | cidrhas --many 10.0.0.0/8</code></pre>
     </section>
     <section id="usage">
       <h2>Usage</h2>
@@ -73,12 +103,11 @@ Examples:
       <div class="grid-2">
         <div>
           <h3 class="ok">Success</h3>
-          <pre><code>cidrhas 10.0.0.5 10.0.0.0/8
-echo exit:$?</code></pre><p>Exit code is 0. Optional stdout: <code>inside</code>.</p>
+          <p>An address inside the CIDR prints inside and exits 0.</p><pre><code>cidrhas 10.0.0.5 10.0.0.0/8</code></pre><pre><code>inside</code></pre>
         </div>
         <div>
           <h3 class="fail">Failure</h3>
-          <pre><code>cidrhas 8.8.8.8 10.0.0.0/8 ; echo exit:$?</code></pre><p>Exit code is 1 (<code>outside</code>).</p><p>Bad input:</p><pre><code>cidrhas not-an-ip 10.0.0.0/8</code></pre><p>stderr: invalid ipv4. Exit 1.</p>
+          <p>An address outside the CIDR prints outside and exits 1.</p><pre><code>cidrhas 8.8.8.8 10.0.0.0/8</code></pre><pre><code>outside</code></pre><p>Exit code is 1.</p>
         </div>
       </div>
     </section>
