@@ -1,5 +1,13 @@
 # cidrhas
 
+
+---
+
+## License & acquisition
+
+This project is **proprietary**. Production use, redistribution, and commercial deployment require a written commercial license or completed acquisition. See [LICENSE](./LICENSE) and [ACQUISITION.md](./ACQUISITION.md). Contact [@theworker02](https://github.com/theworker02).
+
+
 <img src="docs/logo.svg" alt="cidrhas mark" width="96" height="96">
 
 **Parse IPv4 CIDRs, test membership, inspect ranges, and batch-check addresses with a runtime-neutral API.**
@@ -8,7 +16,7 @@
 ![version 1.1.0](https://img.shields.io/badge/version-1.1.0-C9A227?labelColor=0B1F33)
 ![license MIT](https://img.shields.io/badge/license-MIT-0B1F33)
 
-**Package:** [`@theworker02/cidrhas`](https://jsr.io/@theworker02/cidrhas) · **Site:** [GitHub Pages](https://theworker02.github.io/cidrhas/) · **Source:** [`theworker02/cidrhas`](https://github.com/theworker02/cidrhas)
+**Package:** [`@theworker02/cidrhas`](https://jsr.io/@theworker02/cidrhas) Â· **Site:** [GitHub Pages](https://theworker02.github.io/cidrhas/) Â· **Source:** [`theworker02/cidrhas`](https://github.com/theworker02/cidrhas)
 
 ## Add from JSR
 
@@ -26,13 +34,13 @@ console.log(listCidr("10.0.0.0/30"));
 
 ## Public API
 
-- `cidrHas(ip, cidr)` — containment test.
-- `parseCidr(cidr)` — network, mask, broadcast, and address count.
-- `explain(ip, cidr)` — detailed containment result.
-- `listCidr(cidr, options)` — enumerate a bounded range.
-- `checkMany(ips, cidr)` — batch checks.
-- `ipv4ToInt()` / `intToIpv4()` — IPv4 numeric conversions.
-- `PACKAGE`, `ParsedCidr`, `ExplainResult`, `CidrList`, `CheckResult` — documented JSR symbols.
+- `cidrHas(ip, cidr)` â€” containment test.
+- `parseCidr(cidr)` â€” network, mask, broadcast, and address count.
+- `explain(ip, cidr)` â€” detailed containment result.
+- `listCidr(cidr, options)` â€” enumerate a bounded range.
+- `checkMany(ips, cidr)` â€” batch checks.
+- `ipv4ToInt()` / `intToIpv4()` â€” IPv4 numeric conversions.
+- `PACKAGE`, `ParsedCidr`, `ExplainResult`, `CidrList`, `CheckResult` â€” documented JSR symbols.
 
 ## CLI from source
 
@@ -54,4 +62,4 @@ The canonical public package is JSR `@theworker02/cidrhas`, published with GitHu
 
 ## License
 
-[MIT](LICENSE) © 2026 theworker02
+[MIT](LICENSE) Â© 2026 theworker02
